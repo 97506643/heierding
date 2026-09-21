@@ -2,7 +2,9 @@ name: Build heiErDing
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
   pull_request:
   workflow_dispatch:
 
@@ -22,13 +24,12 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Setup Android SDK
+      - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Install SDK packages
         run: |
-          echo "y" | sdkmanager --licenses || true
-          sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
+          sdkmanager "platforms;android-37" "build-tools;37.0.0" || sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -40,18 +41,12 @@ jobs:
         env:
           HED_VERSION_CODE: '1'
           HED_VERSION_NAME: '1.0.0'
+          HED_APK_NAME: hEeRDIng-release.apk
         run: ./gradlew assembleRelease --stacktrace
-
-      - name: Find APKs
-        run: |
-          echo "=== searching for apk ==="
-          find . -name "*.apk" -type f 2>/dev/null || true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: heiErDing-release
-          path: |
-            app/build/outputs/apk/**/*.apk
-            dist/**/*.apk
+          path: dist/*.apk
           if-no-files-found: warn

@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "h.heiErDing"
-    compileSdk = 36
+    compileSdk = 37
 
     val autoVersionCode = System.getenv("HED_VERSION_CODE")?.toIntOrNull() ?: 1
     val autoVersionName = System.getenv("HED_VERSION_NAME")?.takeIf { it.isNotBlank() } ?: "1.0.0"
@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "h.heiErDing"
         minSdk = 27
-        targetSdk = 36
+        targetSdk = 37
         versionCode = autoVersionCode
         versionName = autoVersionName
         ndk {
