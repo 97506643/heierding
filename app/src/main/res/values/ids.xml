@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 当前保留功能（骰子猜拳 / 主页负一屏）均以代码动态创建视图，未使用静态 id 资源。 -->
+</resources>
